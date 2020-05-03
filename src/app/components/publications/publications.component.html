@@ -1,0 +1,50 @@
+<div>
+<div *ngIf="!this.userService.checkTokenExpired()" class="new-publication-card" style="padding-top: 40px;">
+    <mat-card class="new-publication-card">
+        <mat-card-header style="padding-left: 65px;">
+            <mat-card-title style="color:darkslategray;">Add Publication</mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="padding-left: 65px;">
+            <p>
+                <mat-form-field>
+                    <input style="min-width: 100%;color:darkslategray;" matInput placeholder="Text" #publicationText type="text" required>
+                </mat-form-field>
+            </p>
+       <!--      <p>
+                <mat-form-field>
+                    <textarea style="min-width: 400%;" matInput placeholder="Description" #description type="text" required></textarea>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                    <input style="min-width: 400%;" matInput placeholder="Start Value" #startValue type="number" required>
+                </mat-form-field>
+            </p> -->
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="warn" (click)="onCreatePublication(publicationText.value)">Add</button>
+        </mat-card-actions>
+<!--         <mat-card-footer>
+            {{message}}
+        </mat-card-footer> -->
+    </mat-card>
+</div>
+
+<div *ngIf="!this.userService.checkTokenExpired()" style="padding-top: 40px;">
+    <mat-card class="new-publication-card">
+        <mat-card-header style="padding-left: 65px;">
+            <mat-card-title style="color:darkslategray;">My Publications</mat-card-title>
+        </mat-card-header>
+    <mat-card-content style="padding-left: 65px; color:darkslategray;">
+        <ul>
+            <li *ngFor="let publication of publications">
+              <br>
+              {{ publication.publicationText }}
+              <br>
+              {{ publication.publicationDate | date:'mediumDate' }}
+            </li>
+          </ul>
+    </mat-card-content>
+    </mat-card>
+</div>
+</div>

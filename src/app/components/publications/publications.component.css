@@ -1,0 +1,12 @@
+.publication-list, .new-publication {
+    max-width: 25%; 
+    margin-left: auto; 
+    margin-right: auto;
+  }
+  
+  .new-publication-card {
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: initial;
+  }

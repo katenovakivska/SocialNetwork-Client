@@ -1,0 +1,13 @@
+<div style="color: darkseagreen;">
+<nav>
+  <a mat-raised-button routerLink="/lots">Lots</a>
+  <a *ngIf="this.userService.checkTokenExpired()" mat-raised-button routerLink="/login">Login</a>
+  <a *ngIf="this.userService.checkTokenExpired()" mat-raised-button routerLink="/registration">Registration</a>
+  <a *ngIf="!this.userService.checkTokenExpired()" mat-raised-button routerLink="/personal-page">Personal</a>
+  <a *ngIf="!this.userService.checkTokenExpired()" mat-raised-button routerLink="/publications">Publications</a>
+  <button *ngIf="!this.userService.checkTokenExpired()" mat-raised-button (click)="onLogout()">Logout</button>
+</nav>
+</div>
+<div class="background-image">
+  <router-outlet></router-outlet>
+</div>

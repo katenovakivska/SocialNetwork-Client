@@ -1,0 +1,77 @@
+<div *ngIf="!this.userService.checkTokenExpired()" >
+    <br>
+    <div style="padding-top: 50px; ">
+        <mat-card class="user-card">
+            <div *ngIf="user.avatar == ''" style="padding-left: 50px;padding-top: 50px; ">
+                <img [src]="user.avatar" [] style="width: 200px; height: 200px;">
+                </div>
+            <mat-card-header>
+                <mat-card-title style="color: darkslategray;padding-left: 50px;">
+                    <br>
+                    Login: {{user.userName}}
+                    <br><br>
+                    Email: {{user.email}}
+                    <br><br>
+                    Phone number: {{user.phoneNumber}}
+                </mat-card-title>
+            </mat-card-header>
+
+        </mat-card>
+    </div>
+
+    <div>
+        <mat-card class="user-card">
+            <mat-card-header>
+                <mat-card-title style="color: darkslategray;padding-left: 50px; ">
+                    <p>Change avatar</p>
+                </mat-card-title>
+            </mat-card-header>
+            
+            <form #imageForm=ngForm style="color: darkslategray;padding-left: 50px;" (ngSubmit)="OnSubmit(Image)">
+            <div>
+                <img [src]="urlImage" style="width: 200px; height: 200px;">
+                <br><br>
+                <div style="font-style: oblique;">
+                <input type="file" style="color:darkslategray" value="Choose photo" #Image accept="image/*" (change)="handleImageToInput($event.target.files)">
+                </div>
+                <br>
+                <button type="submit" mat-raised-button color="warn" [disabled]="Image.value=='' || !imageForm.valid">Add</button>
+            </div>
+            </form>
+        </mat-card>
+    </div>
+    
+    <div style="padding-bottom: 20px;">
+        <mat-card class="user-card">
+            <mat-card-header>
+                <mat-card-title style="color: darkslategray;padding-left: 50px; ">
+                    <p>Change personal info</p>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content style="padding-left: 50px;">
+                <p>
+                    <mat-form-field>
+                        <input matInput placeholder="Email" #email type="email" value="{{user.email}}" required>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field>
+                        <input matInput placeholder="PhoneNumber" #phoneNumber type="text" value="{{user.phoneNumber}}" required>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field>
+                        <input matInput placeholder="Password" #password type="password" required>
+                    </mat-form-field>
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="warn" [disabled]="password == '' || email == '' || phoneNumber==''" (click)="onUpdate(email.value, phoneNumber.value, password.value)">Update</button>
+            </mat-card-actions>
+            <mat-card-footer>
+                {{message}}
+            </mat-card-footer>
+
+        </mat-card>
+    </div>
+</div>
