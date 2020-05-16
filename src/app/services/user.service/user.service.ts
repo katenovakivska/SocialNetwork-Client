@@ -70,4 +70,10 @@ export class UserService {
     const headers = new HttpHeaders({ Authorization: token.token });
     return this.http.put<User>(url, user, { headers });
   }
+
+  getUsers(token: Token): Observable<Array<User>> {
+    const url = `${this.usersApiUri}/users`;
+    const headers = new HttpHeaders({ Authorization: token.token });
+    return this.http.get<Array<User>>(url, { headers });
+  }
 }

@@ -2,8 +2,8 @@
     <br>
     <div style="padding-top: 50px; ">
         <mat-card class="user-card">
-            <div *ngIf="user.avatar == ''" style="padding-left: 50px;padding-top: 50px; ">
-                <img [src]="user.avatar" [] style="width: 200px; height: 200px;">
+            <div  style="padding-left: 50px;padding-top: 50px; ">
+                <img [src]="user.avatar"  onerror="this.src='/assets/img/default.jpg'"  style="width: 200px; height: 200px;">
                 </div>
             <mat-card-header>
                 <mat-card-title style="color: darkslategray;padding-left: 50px;">

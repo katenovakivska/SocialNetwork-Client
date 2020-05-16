@@ -5,6 +5,7 @@ export class Comment{
     commentId: number;
     commentText: string;
     commentDate: Date;
-    commenter: User;
+    userName: string;
+    publicationId: number;
     publication: Publication;
 }

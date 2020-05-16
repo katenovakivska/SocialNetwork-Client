@@ -1,49 +1,148 @@
 <div>
 <div *ngIf="!this.userService.checkTokenExpired()" class="new-publication-card" style="padding-top: 40px;">
     <mat-card class="new-publication-card">
-        <mat-card-header style="padding-left: 65px;">
+        <mat-card-header style="padding-left: 155px;">
             <mat-card-title style="color:darkslategray;">Add Publication</mat-card-title>
         </mat-card-header>
-        <mat-card-content style="padding-left: 65px;">
+        <mat-card-content style="padding-left: 155px;">
             <p>
                 <mat-form-field>
                     <input style="min-width: 100%;color:darkslategray;" matInput placeholder="Text" #publicationText type="text" required>
                 </mat-form-field>
             </p>
-       <!--      <p>
-                <mat-form-field>
-                    <textarea style="min-width: 400%;" matInput placeholder="Description" #description type="text" required></textarea>
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field>
-                    <input style="min-width: 400%;" matInput placeholder="Start Value" #startValue type="number" required>
-                </mat-form-field>
-            </p> -->
         </mat-card-content>
+        
         <mat-card-actions>
             <button mat-raised-button color="warn" (click)="onCreatePublication(publicationText.value)">Add</button>
         </mat-card-actions>
-<!--         <mat-card-footer>
-            {{message}}
-        </mat-card-footer> -->
+
     </mat-card>
 </div>
 
 <div *ngIf="!this.userService.checkTokenExpired()" style="padding-top: 40px;">
     <mat-card class="new-publication-card">
         <mat-card-header style="padding-left: 65px;">
-            <mat-card-title style="color:darkslategray;">My Publications</mat-card-title>
+            <mat-card-title style="padding-left:250px;color:darkslategray;">My Publications</mat-card-title>
         </mat-card-header>
-    <mat-card-content style="padding-left: 65px; color:darkslategray;">
-        <ul>
-            <li *ngFor="let publication of publications">
+    <mat-card-content style="color:darkslategray;">
+        <mat-nav-list class="publication-list">
+            <mat-card class="new-publication-card">
+            <mat-card-content style="padding-left: 15px;">
+            <div *ngFor="let publication of publications">
+                <br>
+                <div style="padding-left: 335px;">
+                <button mat-mini-fab color="warn" (click)="onDeletePublication(id.value)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                </div>
               <br>
               {{ publication.publicationText }}
               <br>
+              <div  style="padding-left: 25px;padding-top: 20px; ">
+                <img [src]="publication.photo" onerror="this.src='/assets/img/default.jpg'"  style="width: 350px; height: 350px;">
+                </div>
+              <br>
               {{ publication.publicationDate | date:'mediumDate' }}
-            </li>
-          </ul>
+              <br><br>
+              <input type="hidden" #image value="{{publication.photo}}">
+              <input type="hidden" #id value="{{publication.publicationId}}">
+              
+            <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Add image
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      Choose photo for publication
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+              
+                  <form #imageForm=ngForm style="color: darkslategray;padding-left: 50px; padding-bottom: 10px;" (ngSubmit)="OnSubmit(Image, id.value)">
+                    <input type="hidden" #id value="{{publication.publicationId}}">
+                    <div>
+                        <img [src]="urlImage" style="width: 200px; height: 200px;">
+                        <br><br>
+                        <div style="font-style: oblique;">
+                        <input type="file" style="color:darkslategray" value="Choose photo" #Image accept="image/*" (change)="handleImageToInput($event.target.files)">
+                        </div>
+                        <br>
+                        <button type="submit" mat-raised-button color="warn" [disabled]="Image.value=='' || !imageForm.valid">Add</button>
+                    <br>
+                    </div> 
+                </form>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion>
+                <mat-expansion-panel (click)="getLikeUsers(id.value)">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Show likes
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+              
+                  <div *ngFor="let like of likers">
+                      
+                    <br>
+                    <table>
+                        <tr>
+                            <td>
+                    <div  style="padding-left: 50px;padding-top: 10px; ">
+                        <img [src]="like.avatar"  onerror="this.src='/assets/img/default.jpg'"  style="width: 70px; height: 70px; border-radius: 50%;">
+                    </div></td>
+                   <td style="align-content: center;"> {{like.userName}}</td>
+                    </tr>
+                    </table>
+                    <br>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion>
+                <mat-expansion-panel (click)="getCommentUsers(id.value)">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Show comments
+                    </mat-panel-title>
+                    
+                  </mat-expansion-panel-header>
+              
+                  <div *ngFor="let comment of userComments">
+                      
+                    <br>
+                    <table>
+                        <tr>
+                            <td>
+                    <div  style="padding-left: 50px;padding-top: 10px; ">
+                        <img [src]="comment.avatar"  onerror="this.src='/assets/img/default.jpg'"  style="width: 70px; height: 70px; border-radius: 50%;">
+                    </div></td>
+                   <td style="align-content: center;"> 
+                    <tr><td>{{comment.userName}}<td></tr>
+                        <tr><td>{{ comment.commentDate | date:'mediumDate' }}<td></tr>
+                </td>
+                   <td>
+                       <input type="hidden" #commentId value="{{comment.commentId}}">
+                    <button mat-mini-fab color="warn" aria-label="Example icon button with a delete icon" (click) = "deleteComment(commentId.value)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                   </td>
+                    </tr>
+                    <tr>
+                        <td> <p style="padding-left: 40px; padding-right: 40px;">{{comment.commentText}}</p></td>
+                    </tr>
+
+                    </table>
+                    <br>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+            
+       </div>
+
+        
+            </mat-card-content>
+            </mat-card>
+        </mat-nav-list>
     </mat-card-content>
     </mat-card>
 </div>

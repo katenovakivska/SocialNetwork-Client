@@ -3,6 +3,7 @@ import { Publication } from './publication';
 export class Like{
     likeId:number;
     likeDate: Date;
-    liker: User;
+    userName: string;
+    publicationId: number;
     publication: Publication;
 }

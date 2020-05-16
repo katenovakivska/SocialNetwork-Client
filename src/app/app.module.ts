@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './components/registration/registration.component';
@@ -15,6 +17,9 @@ import { PersonalPageComponent } from './components/personal-page/personal-page.
 import { EnteredComponent } from './components/entered/entered.component';
 import { PublicationsComponent } from './components/publications/publications.component';
 import { FormsModule } from '@angular/forms';
+import { RequestsComponent } from './components/requests/requests.component';
+import { FriendsComponent } from './components/friends/friends.component';
+import { FriendPageComponent } from './components/friend-page/friend-page.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,10 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     PersonalPageComponent,
     EnteredComponent,
-    PublicationsComponent
+    PublicationsComponent,
+    RequestsComponent,
+    FriendsComponent,
+    FriendPageComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +43,9 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatInputModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

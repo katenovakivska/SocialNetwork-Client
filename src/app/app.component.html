@@ -5,6 +5,8 @@
   <a *ngIf="this.userService.checkTokenExpired()" mat-raised-button routerLink="/registration">Registration</a>
   <a *ngIf="!this.userService.checkTokenExpired()" mat-raised-button routerLink="/personal-page">Personal</a>
   <a *ngIf="!this.userService.checkTokenExpired()" mat-raised-button routerLink="/publications">Publications</a>
+  <a *ngIf="!this.userService.checkTokenExpired()" mat-raised-button routerLink="/requests">Requests</a>
+  <a *ngIf="!this.userService.checkTokenExpired()" mat-raised-button routerLink="/friends">Friends</a>
   <button *ngIf="!this.userService.checkTokenExpired()" mat-raised-button (click)="onLogout()">Logout</button>
 </nav>
 </div>

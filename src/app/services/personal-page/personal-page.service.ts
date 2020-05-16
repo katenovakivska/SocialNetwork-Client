@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/models/user';
 import { Observable, Subscription } from 'rxjs';
 import { Token } from '../../models/token';
-import { Avatar } from 'src/app/models/avatar';
 
 @Injectable({
   providedIn: 'root'

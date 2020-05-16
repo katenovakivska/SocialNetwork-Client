@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { PersonalPageService } from 'src/app/services/personal-page/personal-page.service';
 import { UserService } from 'src/app/services/user.service/user.service';
 import { User } from 'src/app/models/user';
-import { Avatar } from 'src/app/models/avatar';
+import { FriendService } from 'src/app/services/friend.service/friend.service';
 
 @Component({
   selector: 'app-personal-page',
@@ -16,7 +16,7 @@ export class PersonalPageComponent implements OnInit {
   imageToUpload: File = null;
   message: string;
   user: User;
-  avatar: Avatar;
+ 
 
   constructor(
     private personalPageService: PersonalPageService,
@@ -59,4 +59,6 @@ export class PersonalPageComponent implements OnInit {
     user.password = password;
     this.userService.updateUser(user, this.userService.getToken()).subscribe(res=>{this.router.navigate(['/personal-page'])});
   }
+
+ 
 }
