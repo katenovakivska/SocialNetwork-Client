@@ -1,0 +1,82 @@
+<div *ngIf="!this.userService.checkTokenExpired()" style="padding-top: 40px;">
+    <mat-card class="request-card">
+        <mat-card-header style="padding-left: 65px;">
+            <mat-card-title style="padding-left:250px;color:darkslategray;">All Users</mat-card-title>
+        </mat-card-header>
+    <mat-card-content style="color:darkslategray;">
+        <mat-nav-list class="publication-list">
+            <mat-card class="new-publication-card">
+            <mat-card-content style="padding-left: 65px;">
+            <div *ngFor="let user of users">
+                <br>
+                {{ user.userName }}
+              <div  style="padding-left: 50px;padding-top: 20px; ">
+                <img [src]="user.photo" onerror="this.src='/assets/img/default.jpg'"  style="width: 200px; height: 200px;">
+                </div>
+              
+              <br>
+              <input type="hidden" #id value="{{user.userName}}">
+              <mat-card-actions>
+                <button mat-raised-button color="warn" (click)="onCreateRequest(id.value)">Send request</button>
+            </mat-card-actions>
+            </div>
+
+        
+            </mat-card-content>
+            </mat-card>
+        </mat-nav-list>
+    </mat-card-content>
+    </mat-card>
+
+
+    <mat-card class="request-card">
+        <mat-card-header style="padding-left: 65px;">
+            <mat-card-title style="padding-left:250px;color:darkslategray;">Send requests</mat-card-title>
+        </mat-card-header>
+    <mat-card-content style="color:darkslategray;">
+        <mat-nav-list class="publication-list">
+            <mat-card class="new-publication-card">
+            <mat-card-content style="padding-left: 65px;">
+            <div *ngFor="let forUser of sendRequests">
+                <br>
+                {{ forUser.receiverName }}
+              <br>
+              <input type="hidden" #id value="{{forUser.requestId}}">
+              <mat-card-actions>
+                <button mat-raised-button color="warn" (click)="onDeleteRequest(id.value)">Delete request</button>
+            </mat-card-actions>
+            </div>
+     
+            </mat-card-content>
+            </mat-card>
+        </mat-nav-list>
+    </mat-card-content>
+    </mat-card>
+
+    <mat-card class="request-card">
+        <mat-card-header style="padding-left: 65px;">
+            <mat-card-title style="padding-left:250px;color:darkslategray;">Received requests</mat-card-title>
+        </mat-card-header>
+    <mat-card-content style="color:darkslategray;">
+        <mat-nav-list class="publication-list">
+            <mat-card class="new-publication-card">
+            <mat-card-content style="padding-left: 65px;">
+            <div *ngFor="let fromUser of receivedRequests">
+                <br>
+                {{ fromUser.userName }}
+              
+              <br>
+              <input type="hidden" #id value="{{fromUser.requestId}}">
+              <input type="hidden" #userName value="{{fromUser.userName}}">
+              <mat-card-actions>
+                <button mat-raised-button color="warn" (click)="onDeleteRequest(id.value)">Delete request</button>
+                <button mat-raised-button color="warn" (click)="onCreateFriendship(userName.value)">Add friend</button>
+            </mat-card-actions>
+            </div>
+     
+            </mat-card-content>
+            </mat-card>
+        </mat-nav-list>
+    </mat-card-content>
+    </mat-card>
+</div>

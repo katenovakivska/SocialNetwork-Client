@@ -1,0 +1,130 @@
+<div *ngIf="!this.userService.checkTokenExpired()" >
+    <br>
+    <div style="padding-top: 50px; ">
+        <mat-card class="user-card" >
+            <div  style="padding-left: 50px;padding-top: 50px; ">
+                <img [src]="friend.avatar"  onerror="this.src='/assets/img/default.jpg'"  style="width: 200px; height: 200px;">
+                </div>
+            <mat-card-header>
+                <mat-card-title style="color: darkslategray;padding-left: 50px;">
+                    <br>
+                    Login: {{friend.userName}}
+                    <br><br>
+                    Email: {{friend.email}}
+                    <br><br>
+                    Phone number: {{friend.phoneNumber}}
+                </mat-card-title>
+            </mat-card-header>
+
+        </mat-card>
+    </div>
+    <div style="padding-top: 40px;">
+        <mat-card class="new-publication-card" >
+            <mat-card-header style="padding-left: 65px;">
+                <mat-card-title style="padding-left:250px;color:darkslategray;">{{friend.userName}} Publications</mat-card-title>
+            </mat-card-header> 
+        <mat-card-content style="color:darkslategray;">
+            <mat-nav-list class="publication-list">
+                <mat-card class="new-publication-card">
+                <mat-card-content style="padding-left: 25px;">
+                <div *ngFor="let publication of friendPublications">
+                 
+                  <br>
+                  {{ publication.publicationText }}
+                  <br>
+                  <div  style="padding-left: 15px;padding-top: 20px; ">
+                    <img [src]="publication.photo" onerror="this.src='/assets/img/default.jpg'"  style="width: 350px; height: 350px;">
+                    </div>
+                  <br>
+                  {{ publication.publicationDate | date:'mediumDate' }}
+                  <br><br>
+                  <input type="hidden" #image value="{{publication.photo}}">
+                  <input type="hidden" #id value="{{publication.publicationId}}">
+                  <button mat-icon-button color="warn" type="submit" aria-label="Example icon button with a heart icon" (click)="createLike(id.value)">
+                    <mat-icon>favorite</mat-icon>
+                  </button>
+                  
+                    <mat-form-field appearance="fill">
+                      <mat-label>Write your comment</mat-label>
+                      <input matInput type="text" placeholder="Placeholder" #comment>
+                      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                      <mat-hint>Comment publication</mat-hint>
+                    </mat-form-field>
+                  
+                    <button mat-button color="warn" (click)="createComment(id.value, comment.value); comment.value=''">Comment</button>
+                   <div *ngIf="isLike(id)">
+                      You like this publication
+                   </div>
+                   <!-- <div *ngIf="!isLike(id)">
+                      You like this publication
+                   </div> -->
+                    <br>
+                 <mat-accordion>
+                    <mat-expansion-panel (click)="getLikeUsers(id.value)">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Show likes
+                        </mat-panel-title>
+                        
+                      </mat-expansion-panel-header>
+                  
+                      <div *ngFor="let like of likers">
+                          
+                        <br>
+                        <table>
+                            <tr>
+                                <td>
+                        <div  style="padding-left: 50px;padding-top: 10px; ">
+                            <img [src]="like.avatar"  onerror="this.src='/assets/img/default.jpg'"  style="width: 70px; height: 70px; border-radius: 50%;">
+                        </div></td>
+                       <td style="align-content: center;"> {{like.userName}}</td>
+                       
+                        </tr>
+                        </table>
+                        <br>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                
+                  <mat-accordion>
+                    <mat-expansion-panel (click)="getCommentUsers(id.value)">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Show comments
+                        </mat-panel-title>
+                        
+                      </mat-expansion-panel-header>
+                  
+                      <div *ngFor="let comment of userComments">
+                          
+                        <br>
+                        <table>
+                            <tr>
+                                <td>
+                        <div  style="padding-left: 50px;padding-top: 10px; ">
+                            <img [src]="comment.avatar"  onerror="this.src='/assets/img/default.jpg'"  style="width: 70px; height: 70px; border-radius: 50%;">
+                        </div></td>
+                       <td style="align-content: center;"> 
+                        <tr><td>{{comment.userName}}<td></tr>
+                            <tr><td>{{ comment.commentDate | date:'mediumDate' }}<td></tr>
+                    </td>
+                       
+                        </tr>
+                        <tr>
+                            <td> <p style="padding-left: 40px; padding-right: 40px;">{{comment.commentText}}</p></td>
+                        </tr>
+
+                        </table>
+                        <br>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            
+                </mat-card-content>
+                </mat-card>
+            </mat-nav-list>
+        </mat-card-content>
+        </mat-card>
+    </div>
+</div>

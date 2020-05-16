@@ -1,0 +1,39 @@
+<div *ngIf="!this.userService.checkTokenExpired()" style="padding-top: 40px;">
+    <mat-card class="new-friends-card">
+        <mat-card-header style="padding-left: 65px;">
+            <mat-card-title style="padding-left:250px;color:darkslategray;">Friends</mat-card-title>
+        </mat-card-header>
+    <mat-card-content style="color:darkslategray;">
+        <mat-nav-list class="publication-list">
+            <mat-card class="new-publication-card">
+            <mat-card-content style="padding-left: 65px;">
+            <div *ngFor="let friend of friends">
+                <table>
+                    <tr style="align-content: center;">
+                        <td>
+                <div  style="padding-left: 50px;padding-top: 50px; ">
+                    <img [src]="friend.avatar"  onerror="this.src='/assets/img/default.jpg'"  style="width: 100px; height: 100px; border-radius: 50%;">
+                </div></td>
+            <td style="align-content: center;">
+               <p style="padding-top: 15px;"> {{friend.userName}}</p>
+                </td>
+                <td style="align-content: center; ">
+                    <input type="hidden" #userName value="{{friend.userName}}">
+                    <mat-card-actions style=" padding-left: 15px;padding-top: 20px;">
+                      <button mat-raised-button color="warn" >Delete</button>
+                      <a mat-raised-button color="warn" routerLink="/friend-page/{{friend.userName}}">More</a>
+                  </mat-card-actions>
+                </td>
+                    </tr>
+                </table>
+                <br><br>
+             
+            </div>
+     
+            </mat-card-content>
+            </mat-card>
+        </mat-nav-list>
+    </mat-card-content>
+    </mat-card>
+    </div>
+              
